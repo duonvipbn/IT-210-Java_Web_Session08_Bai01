@@ -1,0 +1,12 @@
+Phần 1 – Phân tích logic
+
+(1) Lọt khoảng trắng vào Database
+Do dùng @NotNull nên chỉ kiểm tra giá trị có khác null hay không.
+Chuỗi " " (toàn khoảng trắng) vẫn khác null → validation pass → bị lưu vào database → sai nghiệp vụ.
+
+(2) Không chặn được request từ Postman, gây lỗi 500
+Trong controller không có @Valid trước @RequestBody nên Bean Validation không được kích hoạt.
+Khi dữ liệu sai:
+
+Không bị chặn từ đầu
+Có thể gây lỗi ở tầng xử lý → Spring trả về 500 thay vì 400
