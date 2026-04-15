@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Nhập địa chỉ</title>
+</head>
+<body>
+
+<h2>Nhập địa chỉ giao hàng</h2>
+
+<form th:action="@{/address/save}" th:object="${addressDto}" method="post">
+
+  <div>
+    <label>Tên người nhận:</label>
+    <input type="text" th:field="*{receiverName}" />
+    <p style="color:red" th:if="${#fields.hasErrors('receiverName')}"
+       th:errors="*{receiverName}"></p>
+  </div>
+
+  <div>
+    <label>Địa chỉ:</label>
+    <input type="text" th:field="*{detailedAddress}" />
+    <p style="color:red" th:if="${#fields.hasErrors('detailedAddress')}"
+       th:errors="*{detailedAddress}"></p>
+  </div>
+
+  <button type="submit">Lưu</button>
+</form>
+
+</body>
+</html>

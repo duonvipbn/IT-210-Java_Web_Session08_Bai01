@@ -1,17 +1,34 @@
 package com.it210java_web_session08_bai01.controller;
 
+
 import com.it210java_web_session08_bai01.dto.AddressDto;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/address")
+@Controller
+@RequestMapping("/address")
 public class UserController {
 
-    @PostMapping("/update")
-    public ResponseEntity<?> updateAddress(@Valid @RequestBody AddressDto addressDto) {
-        // giả lập lưu database
-        return ResponseEntity.ok("Cập nhật địa chỉ thành công!");
+    // Hiển thị form
+    @GetMapping("/form")
+    public String showForm(Model model) {
+        model.addAttribute("addressDto", new AddressDto());
+        return "address-form";
+    }
+
+    // Submit form
+    @PostMapping("/save")
+    public String saveAddress(@Valid @ModelAttribute("addressDto") AddressDto addressDto,
+                              BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "address-form"; // quay lại form nếu lỗi
+        }
+
+        // giả lập lưu DB
+        return "success";
     }
 }
